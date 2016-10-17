@@ -30,7 +30,8 @@ public:
     bool k=true;
     int kk=0;
     QString level;
-
+    int first=0;
+    int op;
 
 private slots:
 

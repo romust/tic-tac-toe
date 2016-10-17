@@ -45,14 +45,34 @@ void MainWindow::on_clicked()
                 ((QPushButton*)sender())->setText("O"); play = true;
             }
             checkWin();
-
         }
     }
     if(type==2)
     {
-        comp();
-        checkWin();
-        // player=play;
+        if(first==0){
+            if(((QPushButton*)sender())->text()==NULL){
+                if(play){
+                    ((QPushButton*)sender())->setText("X"); play = false;
+                }
+                else
+                {
+                    ((QPushButton*)sender())->setText("O"); play = true;
+                }
+                first=1;
+            }
+
+            checkWin();
+
+        }
+
+        if(first==1)
+        {
+            comp();
+            first=0;
+            checkWin();
+        }
+        play=player;
+
     }
 
 }
@@ -67,7 +87,7 @@ void MainWindow::on_clicked()
 
 void MainWindow::checkWin()
 {
-    dh++;
+
     if(     (b[0]->text() == "X" && b[1]->text() == "X" && b[2]->text() == "X") ||
             (b[3]->text() == "X" && b[4]->text() == "X" && b[5]->text() == "X") ||
             (b[6]->text() == "X" && b[7]->text() == "X" && b[8]->text() == "X") ||
@@ -95,7 +115,20 @@ void MainWindow::checkWin()
         ui->oval->setText(QString::number(textVal));
         reset();
     }
-    if(dh==9){
+
+    op=0;
+    for(int i=0;i<9;i++)
+    {
+        if(b[i]->text()!=NULL)
+        {
+            op++;
+        }
+    }
+    /**qDebug()<<op<<play;
+    qDebug()<<b[0]->text()<<b[1]->text()<<b[2]->text();
+    qDebug()<<b[3]->text()<<b[4]->text()<<b[5]->text();
+    qDebug()<<b[6]->text()<<b[7]->text()<<b[8]->text();**/
+    if(op==9){
         reset();
     }
 
@@ -113,15 +146,21 @@ void MainWindow:: reset()
 {
     for(int i=0;i<9;i++)
     {
+
+
         b[i]->setText(NULL);
-        play=player;
+
+
     }
+    play=player;
+    // dh=-1;
+    first=0;
 }
 
 
 //////////////////////////////////////////////////////////////////////////
 ////////////////////////                     /////////////////////////////
-////////////////////////   ПОЛНАЯ ОТЧИСТКА   /////////////////////////////
+////////////////////////   ПОЛНАЯ ОЧИСТКА   /////////////////////////////
 ////////////////////////                     /////////////////////////////
 //////////////////////////////////////////////////////////////////////////
 
@@ -143,15 +182,6 @@ void MainWindow:: clear()
 
 void MainWindow:: comp()
 {
-    if(((QPushButton*)sender())->text()==NULL){
-        if(play){
-            ((QPushButton*)sender())->setText("X"); play = false;
-        }
-        else
-        {
-            ((QPushButton*)sender())->setText("O"); play = true;
-        }
-
     kk=0;
     for(int i=0;i<9;i++)
     {
@@ -163,31 +193,167 @@ void MainWindow:: comp()
 
     if(kk!=9)
     {
-        if(level=="easy"){
-        while(k){
-            int random=rand()%8;
-            if(b[random]->text()==NULL)
+        if(level=="easy")
+        {
+            while(k)
             {
-                if(play){
-                    b[random]->setText("X"); play = false;
-                }
-                else
+                int random=rand()%8;
+                if(b[random]->text()==NULL)
                 {
-                    b[random]->setText("O"); play = true;
+                    if(play){
+                        b[random]->setText("X"); play = false;// checkWin();
+                    }
+                    else
+                    {
+                        b[random]->setText("O"); play = true;// checkWin();
+                    }
+                    k=false;
                 }
-                k=false;
             }
         }
-        }
-        else if (level=="middle"){}
-        else if (level=="hard"){}
+        else if (level=="middle")
+        {
 
+
+            if(play){//если play = Х
+                if  ((b[0]->text() == "O" && b[1]->text() == "O")||(b[1]->text() == "O" && b[2]->text() == "O") || (b[0]->text() == "O" && b[2]->text() == "O"))
+                {
+                    if (play && b[0]->text()==NULL){b[0]->setText("X"); play = false;}
+                    else if (play && b[1]->text()==NULL){b[1]->setText("X"); play = false;}
+                    else if (play && b[2]->text()==NULL){b[2]->setText("X"); play = false;}
+                }
+                if  (play&&((b[3]->text() == "O" && b[4]->text() == "O")||(b[4]->text() == "O" && b[5]->text() == "O") || (b[3]->text() == "O" && b[5]->text() == "O")))
+                {
+                    if (play && b[3]->text()==NULL){b[3]->setText("X"); play = false;}
+                    else if (play && b[4]->text()==NULL){b[4]->setText("X"); play = false;}
+                    else if (play && b[5]->text()==NULL){b[5]->setText("X"); play = false;}
+                }
+                if  (play&&((b[6]->text() == "O" && b[7]->text() == "O")||(b[7]->text() == "O" && b[8]->text() == "O") || (b[6]->text() == "O" && b[8]->text() == "O")))
+                {
+                    if (play && b[6]->text()==NULL){b[6]->setText("X"); play = false;}
+                    else if (play && b[7]->text()==NULL){b[7]->setText("X"); play = false;}
+                    else if (play && b[8]->text()==NULL){b[8]->setText("X"); play = false;}
+                }
+                if  (play&&((b[0]->text() == "O" && b[3]->text() == "O")||(b[3]->text() == "O" && b[6]->text() == "O") || (b[0]->text() == "O" && b[6]->text() == "O")))
+                {
+                    if (play && b[0]->text()==NULL){b[0]->setText("X"); play = false;}
+                    else if (play && b[3]->text()==NULL){b[3]->setText("X"); play = false;}
+                    else if (play && b[6]->text()==NULL){b[6]->setText("X"); play = false;}
+                }
+                if  (play&&((b[1]->text() == "O" && b[4]->text() == "O")||(b[4]->text() == "O" && b[7]->text() == "O") || (b[1]->text() == "O" && b[7]->text() == "O")))
+                {
+                    if (play && b[1]->text()==NULL){b[1]->setText("X"); play = false;}
+                    else if (play && b[4]->text()==NULL){b[4]->setText("X"); play = false;}
+                    else if (play && b[7]->text()==NULL){b[7]->setText("X"); play = false;}
+                }
+                if  (play&&((b[2]->text() == "O" && b[5]->text() == "O")||(b[5]->text() == "O" && b[8]->text() == "O") || (b[2]->text() == "O" && b[8]->text() == "O")))
+                {
+                    if (play && b[2]->text()==NULL){b[2]->setText("X"); play = false;}
+                    else if (play && b[5]->text()==NULL){b[5]->setText("X"); play = false;}
+                    else if (play && b[8]->text()==NULL){b[8]->setText("X"); play = false;}
+                }
+                if  (play&&((b[0]->text() == "O" && b[4]->text() == "O")||(b[4]->text() == "O" && b[8]->text() == "O") || (b[0]->text() == "O" && b[8]->text() == "O")))
+                {
+                    if (play && b[0]->text()==NULL){b[0]->setText("X"); play = false;}
+                    else if (play && b[4]->text()==NULL){b[4]->setText("X"); play = false;}
+                    else if (play && b[8]->text()==NULL){b[8]->setText("X"); play = false;}
+                }
+                if  (play&&((b[2]->text() == "O" && b[4]->text() == "O")||(b[4]->text() == "O" && b[6]->text() == "O") || (b[2]->text() == "O" && b[6]->text() == "O")))
+                {
+                    if (play && b[2]->text()==NULL){b[2]->setText("X"); play = false;}
+                    else if (play && b[4]->text()==NULL){b[4]->setText("X"); play = false;}
+                    else if (play && b[6]->text()==NULL){b[6]->setText("X"); play = false;}
+                }
+
+                if(play){
+                    while(k){
+                        int random=rand()%8;
+                        if(b[random]->text()==NULL)
+                        {
+                            b[random]->setText("X"); play = false;
+                            k=false;
+                        }
+                    }
+                }
+            }
+
+
+            else if(!play){//если !play = Х
+                if  ((b[0]->text() == "X" && b[1]->text() == "X")||(b[1]->text() == "X" && b[2]->text() == "X") || (b[0]->text() == "X" && b[2]->text() == "X"))
+                {
+                    if (!play && b[0]->text()==NULL){b[0]->setText("O"); play = true;}
+                    else if (!play && b[1]->text()==NULL){b[1]->setText("O"); play = true;}
+                    else if (!play && b[2]->text()==NULL){b[2]->setText("O"); play = true;}
+                }
+                if  (!play&&((b[3]->text() == "X" && b[4]->text() == "X")||(b[4]->text() == "X" && b[5]->text() == "X") || (b[3]->text() == "X" && b[5]->text() == "X")))
+                {
+                    if (!play && b[3]->text()==NULL){b[3]->setText("O"); play = true;}
+                    else if (!play && b[4]->text()==NULL){b[4]->setText("O"); play = true;}
+                    else if (!play && b[5]->text()==NULL){b[5]->setText("O"); play = true;}
+                }
+                if  (!play&&((b[6]->text() == "X" && b[7]->text() == "X")||(b[7]->text() == "X" && b[8]->text() == "X") || (b[6]->text() == "X" && b[8]->text() == "X")))
+                {
+                    if (!play && b[6]->text()==NULL){b[6]->setText("O"); play = true;}
+                    else if (!play && b[7]->text()==NULL){b[7]->setText("O"); play = true;}
+                    else if (!play && b[8]->text()==NULL){b[8]->setText("O"); play = true;}
+                }
+                if  (!play&&((b[0]->text() == "X" && b[3]->text() == "X")||(b[3]->text() == "X" && b[6]->text() == "X") || (b[0]->text() == "X" && b[6]->text() == "X")))
+                {
+                    if (!play && b[0]->text()==NULL){b[0]->setText("O"); play = true;}
+                    else if (!play && b[3]->text()==NULL){b[3]->setText("O"); play = true;}
+                    else if (!play && b[6]->text()==NULL){b[6]->setText("O"); play = true;}
+                }
+                if  (!play&&((b[1]->text() == "X" && b[4]->text() == "X")||(b[4]->text() == "X" && b[7]->text() == "X") || (b[1]->text() == "X" && b[7]->text() == "X")))
+                {
+                    if (!play && b[1]->text()==NULL){b[1]->setText("O"); play = true;}
+                    else if (!play && b[4]->text()==NULL){b[4]->setText("O"); play = true;}
+                    else if (!play && b[7]->text()==NULL){b[7]->setText("O"); play = true;}
+                }
+                if  (!play&&((b[2]->text() == "X" && b[5]->text() == "X")||(b[5]->text() == "X" && b[8]->text() == "X") || (b[2]->text() == "X" && b[8]->text() == "X")))
+                {
+                    if (!play && b[2]->text()==NULL){b[2]->setText("O"); play = true;}
+                    else if (!play && b[5]->text()==NULL){b[5]->setText("O"); play = true;}
+                    else if (!play && b[8]->text()==NULL){b[8]->setText("O"); play = true;}
+                }
+                if  (!play&&((b[0]->text() == "X" && b[4]->text() == "X")||(b[4]->text() == "X" && b[8]->text() == "X") || (b[0]->text() == "X" && b[8]->text() == "X")))
+                {
+                    if (!play && b[0]->text()==NULL){b[0]->setText("O"); play = true;}
+                    else if (!play && b[4]->text()==NULL){b[4]->setText("O"); play = true;}
+                    else if (!play && b[8]->text()==NULL){b[8]->setText("O"); play = true;}
+                }
+                if  (!play&&((b[2]->text() == "X" && b[4]->text() == "X")||(b[4]->text() == "X" && b[6]->text() == "X") || (b[2]->text() == "X" && b[6]->text() == "X")))
+                {
+                    if (!play && b[2]->text()==NULL){b[2]->setText("O"); play = true;}
+                    else if (!play && b[4]->text()==NULL){b[4]->setText("O"); play = true;}
+                    else if (!play && b[6]->text()==NULL){b[6]->setText("O"); play = true;}
+                }
+
+                if(!play){
+                    while(k){
+                        int random=rand()%8;
+                        if(b[random]->text()==NULL)
+                        {
+                            b[random]->setText("O"); play = true;
+                            k=false;
+                        }
+                    }
+                }
+            }
+
+        }
+
+        else if (level=="hard")
+        {
+
+        }
 
     }
-
     k=true;
+
+
+
 }
-}
+
 
 
 //////////////////////////////////////////////////////////////////////////
