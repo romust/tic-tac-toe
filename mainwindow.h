@@ -2,11 +2,16 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QStack>
-#include <QSignalMapper>
-class QSignalMapper;
+#include <QRadioButton>
+#include <QWidget>
+#include <QPushButton>
+#include <QGridLayout>
+#include <QStackedWidget>
+
+
 namespace Ui {
 class MainWindow;
+
 }
 
 class MainWindow : public QMainWindow
@@ -16,31 +21,44 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    QStack<char> check;
-    int grid[3][3];
+    bool play;
+    bool player;
+    QPushButton *b[9];
+    int textVal;
+    int type;
+    int dh=0;
+    bool k=true;
+    int kk=0;
+    QString level;
 
-    int l, o;
 
-int checkWin();
-void Handle(int);
 private slots:
 
-    void on_NewGame_triggered();
+    void reset();
+    void clear();
+    void on_clicked();
+    void on_bmenu_clicked();
+    void comp();
+    void on_PvE_clicked();
+    void on_PvP_clicked();
+    void checkWin();
 
-    void pbSlot(int widget);
-    /**void on_b1_clicked();
-    void on_b2_clicked();
-    void on_b3_clicked();
-    void on_b4_clicked();
-    void on_b5_clicked();
-    void on_b6_clicked();
-    void on_b7_clicked();
-    void on_b8_clicked();
-    void on_b9_clicked();**/
+
+
+
+    void on_Xfirst_clicked();
+
+    void on_Ofirst_clicked();
+
+    void on_easy_clicked();
+
+    void on_middle_clicked();
+
+    void on_hard_clicked();
 
 private:
     Ui::MainWindow *ui;
-    QSignalMapper *signalMapper;
+
 };
 
 #endif // MAINWINDOW_H

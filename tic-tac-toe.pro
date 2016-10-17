@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2016-09-16T15:46:29
+# Project created by QtCreator 2016-09-25T00:42:49
 #
 #-------------------------------------------------
 
@@ -18,8 +18,3 @@ SOURCES += main.cpp\
 HEADERS  += mainwindow.h
 
 FORMS    += mainwindow.ui
-
-RESOURCES += \
-    res.qrc
-
-DISTFILES +=
