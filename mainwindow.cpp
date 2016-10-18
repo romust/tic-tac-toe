@@ -25,6 +25,7 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
 //////////////////////////////////////////////////////////////////////////
 ////////////////////////                     /////////////////////////////
 ////////////////////////    КНОПКИ [Х][О]    /////////////////////////////
@@ -124,10 +125,6 @@ void MainWindow::checkWin()
             op++;
         }
     }
-    /**qDebug()<<op<<play;
-    qDebug()<<b[0]->text()<<b[1]->text()<<b[2]->text();
-    qDebug()<<b[3]->text()<<b[4]->text()<<b[5]->text();
-    qDebug()<<b[6]->text()<<b[7]->text()<<b[8]->text();**/
     if(op==9){
         reset();
     }
@@ -146,21 +143,16 @@ void MainWindow:: reset()
 {
     for(int i=0;i<9;i++)
     {
-
-
         b[i]->setText(NULL);
-
-
     }
     play=player;
-    // dh=-1;
     first=0;
 }
 
 
 //////////////////////////////////////////////////////////////////////////
 ////////////////////////                     /////////////////////////////
-////////////////////////   ПОЛНАЯ ОЧИСТКА   /////////////////////////////
+////////////////////////   ПОЛНАЯ ОЧИСТКА    /////////////////////////////
 ////////////////////////                     /////////////////////////////
 //////////////////////////////////////////////////////////////////////////
 
@@ -182,16 +174,16 @@ void MainWindow:: clear()
 
 void MainWindow:: comp()
 {
-    kk=0;
+    counter=0;
     for(int i=0;i<9;i++)
     {
         if(b[i]->text()!=NULL)
         {
-            kk++;
+            counter++;
         }
     }
 
-    if(kk!=9)
+    if(counter!=9)
     {
         if(level=="easy")
         {
@@ -213,57 +205,16 @@ void MainWindow:: comp()
         }
         else if (level=="middle")
         {
+            if(play){//если игрок играет за Х
 
-
-            if(play){//если play = Х
-                if  ((b[0]->text() == "O" && b[1]->text() == "O")||(b[1]->text() == "O" && b[2]->text() == "O") || (b[0]->text() == "O" && b[2]->text() == "O"))
-                {
-                    if (play && b[0]->text()==NULL){b[0]->setText("X"); play = false;}
-                    else if (play && b[1]->text()==NULL){b[1]->setText("X"); play = false;}
-                    else if (play && b[2]->text()==NULL){b[2]->setText("X"); play = false;}
-                }
-                if  (play&&((b[3]->text() == "O" && b[4]->text() == "O")||(b[4]->text() == "O" && b[5]->text() == "O") || (b[3]->text() == "O" && b[5]->text() == "O")))
-                {
-                    if (play && b[3]->text()==NULL){b[3]->setText("X"); play = false;}
-                    else if (play && b[4]->text()==NULL){b[4]->setText("X"); play = false;}
-                    else if (play && b[5]->text()==NULL){b[5]->setText("X"); play = false;}
-                }
-                if  (play&&((b[6]->text() == "O" && b[7]->text() == "O")||(b[7]->text() == "O" && b[8]->text() == "O") || (b[6]->text() == "O" && b[8]->text() == "O")))
-                {
-                    if (play && b[6]->text()==NULL){b[6]->setText("X"); play = false;}
-                    else if (play && b[7]->text()==NULL){b[7]->setText("X"); play = false;}
-                    else if (play && b[8]->text()==NULL){b[8]->setText("X"); play = false;}
-                }
-                if  (play&&((b[0]->text() == "O" && b[3]->text() == "O")||(b[3]->text() == "O" && b[6]->text() == "O") || (b[0]->text() == "O" && b[6]->text() == "O")))
-                {
-                    if (play && b[0]->text()==NULL){b[0]->setText("X"); play = false;}
-                    else if (play && b[3]->text()==NULL){b[3]->setText("X"); play = false;}
-                    else if (play && b[6]->text()==NULL){b[6]->setText("X"); play = false;}
-                }
-                if  (play&&((b[1]->text() == "O" && b[4]->text() == "O")||(b[4]->text() == "O" && b[7]->text() == "O") || (b[1]->text() == "O" && b[7]->text() == "O")))
-                {
-                    if (play && b[1]->text()==NULL){b[1]->setText("X"); play = false;}
-                    else if (play && b[4]->text()==NULL){b[4]->setText("X"); play = false;}
-                    else if (play && b[7]->text()==NULL){b[7]->setText("X"); play = false;}
-                }
-                if  (play&&((b[2]->text() == "O" && b[5]->text() == "O")||(b[5]->text() == "O" && b[8]->text() == "O") || (b[2]->text() == "O" && b[8]->text() == "O")))
-                {
-                    if (play && b[2]->text()==NULL){b[2]->setText("X"); play = false;}
-                    else if (play && b[5]->text()==NULL){b[5]->setText("X"); play = false;}
-                    else if (play && b[8]->text()==NULL){b[8]->setText("X"); play = false;}
-                }
-                if  (play&&((b[0]->text() == "O" && b[4]->text() == "O")||(b[4]->text() == "O" && b[8]->text() == "O") || (b[0]->text() == "O" && b[8]->text() == "O")))
-                {
-                    if (play && b[0]->text()==NULL){b[0]->setText("X"); play = false;}
-                    else if (play && b[4]->text()==NULL){b[4]->setText("X"); play = false;}
-                    else if (play && b[8]->text()==NULL){b[8]->setText("X"); play = false;}
-                }
-                if  (play&&((b[2]->text() == "O" && b[4]->text() == "O")||(b[4]->text() == "O" && b[6]->text() == "O") || (b[2]->text() == "O" && b[6]->text() == "O")))
-                {
-                    if (play && b[2]->text()==NULL){b[2]->setText("X"); play = false;}
-                    else if (play && b[4]->text()==NULL){b[4]->setText("X"); play = false;}
-                    else if (play && b[6]->text()==NULL){b[6]->setText("X"); play = false;}
-                }
+                middleForXorO(0,1,2,"O");
+                middleForXorO(3,4,5,"O");
+                middleForXorO(6,7,8,"O");
+                middleForXorO(0,3,6,"O");
+                middleForXorO(1,4,7,"O");
+                middleForXorO(2,5,8,"O");
+                middleForXorO(0,4,8,"O");
+                middleForXorO(2,4,6,"O");
 
                 if(play){
                     while(k){
@@ -277,57 +228,16 @@ void MainWindow:: comp()
                 }
             }
 
+            else if(!play){//если игрок играет за O
 
-            else if(!play){//если !play = Х
-                if  ((b[0]->text() == "X" && b[1]->text() == "X")||(b[1]->text() == "X" && b[2]->text() == "X") || (b[0]->text() == "X" && b[2]->text() == "X"))
-                {
-                    if (!play && b[0]->text()==NULL){b[0]->setText("O"); play = true;}
-                    else if (!play && b[1]->text()==NULL){b[1]->setText("O"); play = true;}
-                    else if (!play && b[2]->text()==NULL){b[2]->setText("O"); play = true;}
-                }
-                if  (!play&&((b[3]->text() == "X" && b[4]->text() == "X")||(b[4]->text() == "X" && b[5]->text() == "X") || (b[3]->text() == "X" && b[5]->text() == "X")))
-                {
-                    if (!play && b[3]->text()==NULL){b[3]->setText("O"); play = true;}
-                    else if (!play && b[4]->text()==NULL){b[4]->setText("O"); play = true;}
-                    else if (!play && b[5]->text()==NULL){b[5]->setText("O"); play = true;}
-                }
-                if  (!play&&((b[6]->text() == "X" && b[7]->text() == "X")||(b[7]->text() == "X" && b[8]->text() == "X") || (b[6]->text() == "X" && b[8]->text() == "X")))
-                {
-                    if (!play && b[6]->text()==NULL){b[6]->setText("O"); play = true;}
-                    else if (!play && b[7]->text()==NULL){b[7]->setText("O"); play = true;}
-                    else if (!play && b[8]->text()==NULL){b[8]->setText("O"); play = true;}
-                }
-                if  (!play&&((b[0]->text() == "X" && b[3]->text() == "X")||(b[3]->text() == "X" && b[6]->text() == "X") || (b[0]->text() == "X" && b[6]->text() == "X")))
-                {
-                    if (!play && b[0]->text()==NULL){b[0]->setText("O"); play = true;}
-                    else if (!play && b[3]->text()==NULL){b[3]->setText("O"); play = true;}
-                    else if (!play && b[6]->text()==NULL){b[6]->setText("O"); play = true;}
-                }
-                if  (!play&&((b[1]->text() == "X" && b[4]->text() == "X")||(b[4]->text() == "X" && b[7]->text() == "X") || (b[1]->text() == "X" && b[7]->text() == "X")))
-                {
-                    if (!play && b[1]->text()==NULL){b[1]->setText("O"); play = true;}
-                    else if (!play && b[4]->text()==NULL){b[4]->setText("O"); play = true;}
-                    else if (!play && b[7]->text()==NULL){b[7]->setText("O"); play = true;}
-                }
-                if  (!play&&((b[2]->text() == "X" && b[5]->text() == "X")||(b[5]->text() == "X" && b[8]->text() == "X") || (b[2]->text() == "X" && b[8]->text() == "X")))
-                {
-                    if (!play && b[2]->text()==NULL){b[2]->setText("O"); play = true;}
-                    else if (!play && b[5]->text()==NULL){b[5]->setText("O"); play = true;}
-                    else if (!play && b[8]->text()==NULL){b[8]->setText("O"); play = true;}
-                }
-                if  (!play&&((b[0]->text() == "X" && b[4]->text() == "X")||(b[4]->text() == "X" && b[8]->text() == "X") || (b[0]->text() == "X" && b[8]->text() == "X")))
-                {
-                    if (!play && b[0]->text()==NULL){b[0]->setText("O"); play = true;}
-                    else if (!play && b[4]->text()==NULL){b[4]->setText("O"); play = true;}
-                    else if (!play && b[8]->text()==NULL){b[8]->setText("O"); play = true;}
-                }
-                if  (!play&&((b[2]->text() == "X" && b[4]->text() == "X")||(b[4]->text() == "X" && b[6]->text() == "X") || (b[2]->text() == "X" && b[6]->text() == "X")))
-                {
-                    if (!play && b[2]->text()==NULL){b[2]->setText("O"); play = true;}
-                    else if (!play && b[4]->text()==NULL){b[4]->setText("O"); play = true;}
-                    else if (!play && b[6]->text()==NULL){b[6]->setText("O"); play = true;}
-                }
-
+                middleForXorO(0,1,2,"X");
+                middleForXorO(3,4,5,"X");
+                middleForXorO(6,7,8,"X");
+                middleForXorO(0,3,6,"X");
+                middleForXorO(1,4,7,"X");
+                middleForXorO(2,5,8,"X");
+                middleForXorO(0,4,8,"X");
+                middleForXorO(2,4,6,"X");
                 if(!play){
                     while(k){
                         int random=rand()%8;
@@ -339,21 +249,45 @@ void MainWindow:: comp()
                     }
                 }
             }
-
         }
 
         else if (level=="hard")
         {
 
         }
-
     }
     k=true;
-
-
-
 }
 
+//////////////////////////////////////////////////////////////////////////
+////////////////////////                     /////////////////////////////
+////////////////////////   СРЕДНИЙ УРОВЕНЬ   /////////////////////////////
+////////////////////////                     /////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+
+void MainWindow:: middleForXorO(int i, int j, int z, QString XorO)
+{
+    if(XorO=="O")
+    {
+        if  (play&&((b[i]->text() == XorO && b[j]->text() == XorO)||(b[j]->text() == XorO && b[z]->text() == XorO) || (b[i]->text() == XorO && b[z]->text() == XorO)))
+        {
+                 if (play && b[i]->text()==NULL){b[i]->setText("X"); play = false;}
+            else if (play && b[j]->text()==NULL){b[j]->setText("X"); play = false;}
+            else if (play && b[z]->text()==NULL){b[z]->setText("X"); play = false;}
+        }
+
+    }
+    else if(XorO=="X")
+    {
+        if  (!play&&((b[i]->text() == XorO && b[j]->text() == XorO)||(b[j]->text() == XorO && b[z]->text() == XorO) || (b[i]->text() == XorO && b[z]->text() == XorO)))
+        {
+                 if (!play && b[i]->text()==NULL){b[i]->setText("O"); play = true;}
+            else if (!play && b[j]->text()==NULL){b[j]->setText("O"); play = true;}
+            else if (!play && b[z]->text()==NULL){b[z]->setText("O"); play = true;}
+        }
+
+    }
+}
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -400,8 +334,11 @@ void MainWindow::on_PvP_clicked()
 
 }
 
-
-
+//////////////////////////////////////////////////////////////////////////
+/////////////////////                           //////////////////////////
+/////////////////////   КНОПКИ ВЫБОРА Х или О   //////////////////////////
+/////////////////////                           //////////////////////////
+//////////////////////////////////////////////////////////////////////////
 
 void MainWindow::on_Xfirst_clicked()
 {
@@ -416,6 +353,12 @@ void MainWindow::on_Ofirst_clicked()
     play=player;
     ui->stackedWidget->setCurrentIndex(3);
 }
+
+//////////////////////////////////////////////////////////////////////////
+/////////////////////                           //////////////////////////
+/////////////////////   КНОПКИ ВЫБОРА УРОВНЯ    //////////////////////////
+/////////////////////        СЛОЖНОСТИ          //////////////////////////
+//////////////////////////////////////////////////////////////////////////
 
 void MainWindow::on_easy_clicked()
 {
